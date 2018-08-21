@@ -1,0 +1,25 @@
+<p><input type="button" value="Download"></p>
+<script src="static/json2csv.js" type="text/javascript" charset="utf-8"></script>
+<script charset="utf-8">
+     	var fields = ["a","b","c"]
+        var tt={{data|safe}}
+        console.log(tt)
+        var csv = json2csv({ data: tt, fields: fields });
+        console.log(csv)
+                var eleButton = document.querySelector('input[type="button"]');
+        // 下载文件方法
+        var funDownload = function (content, filename) {
+            var eleLink = document.createElement('a');
+            eleLink.download = filename;
+            eleLink.style.display = 'none';
+            // 字符内容转变成blob地址
+            data = "\ufeff"+content;
+            var blob = new Blob([data]);
+            eleLink.href = URL.createObjectURL(blob);
+            // 触发点击
+            document.body.appendChild(eleLink);
+            eleLink.click();
+            // 然后移除
+            document.body.removeChild(eleLink);};      
+ eleButton.addEventListener('click', function () {funDownload(csv, 'test.csv');});
+</script>
